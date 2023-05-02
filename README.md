@@ -1,6 +1,6 @@
 # conan-astra
 
-Conan recipe for Astra-toolbox
+Conan recipe for [Astra-toolbox](https://www.astra-toolbox.com/)
 
 # Build package locally
 
