@@ -10,3 +10,5 @@ conan install .
 conan build .
 conan export-pkg .
 ```
+
+The Visual Studio solution file is under folder `build`.
