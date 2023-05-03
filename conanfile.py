@@ -65,3 +65,6 @@ class AstraRecipe(ConanFile):
              dst=os.path.join(self.package_folder, "licenses"))
         cmake = CMake(self)
         cmake.install()
+
+    def package_info(self):
+        self.cpp_info.libs = collect_libs(self)

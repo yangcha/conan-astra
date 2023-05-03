@@ -10,8 +10,6 @@ check_language(CUDA)
 find_package(CUDAToolkit)
 
 set(CMAKE_CXX_STANDARD 17)
-#include(${CMAKE_BINARY_DIR}/conanbuildinfo_multi.cmake)
-#conan_basic_setup(TARGETS)
 
 ################################################################################
 # Source groups
@@ -386,14 +384,8 @@ install(TARGETS ${PROJECT_ASTRA}
         LIBRARY DESTINATION lib
         ARCHIVE DESTINATION lib
         RUNTIME DESTINATION bin
+        INCLUDES DESTINATION include
         )
 
-#install(TARGETS ${PROJECT_ASTRA}
-#        CONFIGURATIONS Debug
-#        RUNTIME DESTINATION Debug/bin
-#        LIBRARY DESTINATION Debug/lib)
-
-#install(TARGETS ${PROJECT_ASTRA}
-#        CONFIGURATIONS Release
-#        RUNTIME DESTINATION Release/bin
-#        LIBRARY DESTINATION Release/lib)
+install(DIRECTORY include/astra
+        DESTINATION include)
