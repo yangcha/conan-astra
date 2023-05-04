@@ -1,6 +1,5 @@
 from conan import ConanFile
 from conan.tools.cmake import CMake, CMakeToolchain, cmake_layout
-from conan.errors import ConanInvalidConfiguration
 from conan.tools.files import collect_libs, copy, get
 import os
 
@@ -10,7 +9,10 @@ required_conan_version = ">=1.53.0"
 class AstraRecipe(ConanFile):
     name = "astra-toolbox"
     version = "2.1.0"
-    description = """The ASTRA Toolbox is a toolbox of high-performance GPU primitives for 2D and 3D tomography"""
+    description = "The ASTRA Toolbox is a toolbox of high-performance GPU primitives for 2D and 3D tomography"
+    license = "GPLv3"
+    homepage = "https://www.astra-toolbox.com/"
+
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"
     options = {
@@ -26,9 +28,8 @@ class AstraRecipe(ConanFile):
         copy(self, "CMakeLists.txt", self.recipe_folder,
              os.path.join(self.export_sources_folder, 'src'))
 
-    def validate(self):
-        if self.info.settings.os == "Macos" and self.info.settings.arch == "armv8":
-            raise ConanInvalidConfiguration("ARM v8 not supported")
+    def requirements(self):
+        self.requires("boost/1.78.0")
 
     def config_options(self):
         if self.settings.os == "Windows":
@@ -43,19 +44,15 @@ class AstraRecipe(ConanFile):
     def layout(self):
         cmake_layout(self, src_folder="src")
 
-    def requirements(self):
-        self.requires("boost/1.78.0")
-
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
+        copy(self, "CMakeLists.txt", self.recipe_folder, self.source_folder)
 
     def generate(self):
         tc = CMakeToolchain(self)
         tc.generate()
 
     def build(self):
-        copy(self, "CMakeLists.txt", self.recipe_folder,
-             os.path.join(self.export_sources_folder, 'src'))
         cmake = CMake(self)
         cmake.configure()
         cmake.build()
