@@ -343,7 +343,12 @@ set(ALL_FILES
 # Targets
 ################################################################################
 set(PROJECT_ASTRA AstraCuda64)
+
+if(BUILD_SHARED_LIBS)
 add_library(${PROJECT_ASTRA} SHARED ${ALL_FILES})
+else()
+add_library(${PROJECT_ASTRA} STATIC ${ALL_FILES})
+endif()
 
 set(Boost_USE_STATIC_LIBS        ON)  # only find static libs
 set(Boost_USE_DEBUG_LIBS        OFF)  # ignore debug libs and
@@ -374,7 +379,7 @@ if(Boost_FOUND)
     #set_target_properties(${PROJECT_ASTRA} PROPERTIES
     #                            CUDA_SEPARABLE_COMPILATION ON)
 
-    set_target_properties(${PROJECT_ASTRA} PROPERTIES CUDA_ARCHITECTURES "70")
+    set_target_properties(${PROJECT_ASTRA} PROPERTIES CUDA_ARCHITECTURES "50;70")
 
 endif()
 
