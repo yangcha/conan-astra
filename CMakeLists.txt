@@ -379,7 +379,7 @@ if(Boost_FOUND)
     #set_target_properties(${PROJECT_ASTRA} PROPERTIES
     #                            CUDA_SEPARABLE_COMPILATION ON)
 
-    set_target_properties(${PROJECT_ASTRA} PROPERTIES CUDA_ARCHITECTURES "50;70")
+    set_target_properties(${PROJECT_ASTRA} PROPERTIES CUDA_ARCHITECTURES "70;80")
 
 endif()
 
